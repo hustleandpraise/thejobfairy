@@ -136,18 +136,14 @@ Promise.all([getCategories, getLocations]).then((models) => {
             var saveTweet = new Models.Tweet({ text: emojiStrip(original.text) });
 
             saveTweet.save().then((model) => {
+                
                 Promise.all([ 
                     model.locations().attach(locals), 
-                    model.categories().attach(cats)
+                    model.categories().attach(cats),
+                    model.tags().attach(setupHashtags(original.entities.hashtags))
                 ]).then((values) => {
 
-                    Promise.all(setupHashtags(original.entities.hashtags)).then((tags) => {
-                        model.tags().attach(tags).then((model) => {
-                            console.log('done!');
-                        });
-                    }).catch((err) => {
-                        console.log(err);
-                    });
+                    console.log('Done!');
     
                 }).catch((err) => {
                     console.log(err);
