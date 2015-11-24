@@ -1,0 +1,44 @@
+
+@import 'normalize.less';
+@import 'preboot.less';
+@import 'plugins.less';
+
+/*
+|--------------------------------------------------------------------------
+| App
+|--------------------------------------------------------------------------
+*/
+
+// Basic Styling - Remove Me!
+
+body {
+    padding: 50px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+a {
+    color: #1abc9c;
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: 300;
+}
+
+@import 'common';
+
+
+.wrap {
+    .make-row();
+}
+
+.movie {
+    .make-column(1);
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+}
