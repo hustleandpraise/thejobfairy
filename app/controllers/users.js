@@ -9,12 +9,15 @@ var express = require('express'),
 |--------------------------------------------------------------------------
 */
 
-router.get('/', (req, res, next) => {
-    var tweets = new models.Tweet().query('limit', 10).fetchAll({ withRelated: ['user', 'tags', 'categories', 'locations'] });
-    tweets.then((models) => {
-        // return res.json(models)
-        res.render('index', { tweets: models.toJSON() });
+router.get('/:username', (req, res, next) => {
+    var user = new models.User({ username: req.params.username }).fetch({ withRelated: ['tweets'] });
+
+    user.then((model) => {
+        res.render('user/index', { user: model.toJSON(), tweets: model.relations.tweets.toJSON() });
+    }).catch((err) => {
+        console.log(err);
     })
+   
 });
 
 /*

@@ -2,3 +2,18 @@ extends layout
 
 block content
     h1= "#thejobfairy"
+
+    each tweet in tweets
+        ul.user
+            li= tweet.text
+            li
+                a(href="/" + tweet.user.username)= "@" + tweet.user.username
+            li= "Tags: "
+                each tag in tweet.tags
+                    = "#" + tag.title + ", "
+            li= "Categories: "
+                each category in tweet.categories
+                    = category.title + ", "
+            li= "Locations: "
+                each location in tweet.locations
+                    = location.title + ", "   
