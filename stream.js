@@ -59,6 +59,34 @@ var setupHashtags = function(hashtags) {
     return arr;
 }
 
+/*
+|--------------------------------------------------------------------------
+| User Setup
+|--------------------------------------------------------------------------
+*/
+
+var userSetup = function(user) {
+    return new Promise((resolve, reject) => {
+        var findUser = new Models.Tweeter({ twitter_id: user.twitter_id }).fetch();
+
+        findUser.then((model) => {
+            if(model === null) {
+                var newUser = new Models.User(user).save();
+                newUser.then((newUserModel) => {
+                    resolve(newUserModel);
+                }).catch((err) => {
+                    reject(err);
+                });
+            } else {
+                resolve(model);
+            }
+        }).catch((err) => {
+            reject(err);
+        });
+    });
+}
+
+
 
 
 /*
@@ -77,6 +105,8 @@ Promise.all([getCategories, getLocations]).then((models) => {
         console.log('Stream Running...');
 
         stream.on('data', (tweet) => {
+
+            console.log(tweet);
 
             var original    = tweet,
                 tweet       = tweet.text.toLowerCase();
@@ -133,18 +163,41 @@ Promise.all([getCategories, getLocations]).then((models) => {
             |--------------------------------------------------------------------------
             */
 
-            var saveTweet = new Models.Tweet({ text: emojiStrip(original.text) });
+            var u = original.user;
 
-            saveTweet.save().then((model) => {
-                
-                Promise.all([ 
-                    model.locations().attach(locals), 
-                    model.categories().attach(cats),
-                    model.tags().attach(setupHashtags(original.entities.hashtags))
-                ]).then((values) => {
+            userSetup({
+                twitter_id: u.id,
+                username: u.screen_name,
+                avatar: u.profile_image_url_https,
+                verified: u.verified
+            }).then((user) => {
 
-                    console.log('Done!');
-    
+                // var saveTweet = user.tweets().create({ text: emojiStrip(original.text) });
+
+                var saveTweet = new Models.Tweet({ 
+                    user_id: user.id,
+                    tweet_id: original.id,
+                    text: emojiStrip(original.text),
+                    tweet_created_at: Date.parse(original.created_at)
+                });
+
+                saveTweet.save().then((model) => {
+                    
+                    Promise.all([ 
+                        model.locations().attach(locals), 
+                        model.categories().attach(cats),
+                    ]).then((values) => {
+
+                        Promise.all(setupHashtags(original.entities.hashtags)).then((tags) => {
+                            model.tags().attach(tags).then((tags) => {
+                                console.log('Done!');
+                            });
+                        })
+
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+
                 }).catch((err) => {
                     console.log(err);
                 });

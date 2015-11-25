@@ -1,6 +1,7 @@
 var services    = require('../services'),
     checkit     = require('checkit'),
-    bcrypt      = require('bcryptjs');
+    bcrypt      = require('bcryptjs'),
+    Tweet       = require('./tweet');
 
 
 
@@ -18,9 +19,9 @@ var User = services.Bookshelf.Model.extend({
     tableName:  'users',
     hasTimestamps: ["created_at", "updated_at"],
     initialize: function() {
-        this.on('saving', this.validateSave, this);
-        this.on('saving', this.hashit, this);
-        this.on('saving', this.removeConfirm, this);
+        // this.on('saving', this.validateSave, this);
+        // this.on('saving', this.hashit, this);
+        // this.on('saving', this.removeConfirm, this);
     },
     validateSave: function() {
         return checkit(rules).run(this.attributes);
@@ -40,6 +41,9 @@ var User = services.Bookshelf.Model.extend({
             });
         });
         
+    },
+    tweets: function() {
+        return this.hasMany(Tweet);
     }
 });
 

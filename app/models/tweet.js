@@ -3,7 +3,8 @@ var services    = require('../services'),
     User        = require('./user'),
     Location    = require('./location'),
     Category    = require('./category'),
-    Tag         = require('./tag');
+    Tag         = require('./tag'),
+    User        = require('./user');
 
 
 var rules = {
@@ -23,6 +24,9 @@ var Tweet = services.Bookshelf.Model.extend({
     },
     tags: function() {
         return this.belongsToMany(Tag);
+    },
+    user: function() {
+        return this.belongsTo(User);
     }
 });
 
