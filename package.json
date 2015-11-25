@@ -41,6 +41,7 @@
         "gulp-rename": "^1.2.2",
         "gulp-uglify": "*",
         "gulp-watch": "^4.2.4",
-        "gulp-webserver": "^0.9.1"
+        "gulp-webserver": "^0.9.1",
+        "shipit-deploy" : "*"
     }
 }
