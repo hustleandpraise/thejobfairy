@@ -1,3 +1,6 @@
+
+var Config = require('../config');
+
 var knex = require('knex')({
     client: 'mysql',
     connection: {
