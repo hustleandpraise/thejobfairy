@@ -43,10 +43,9 @@ var User = services.Bookshelf.Model.extend({
         
     },
     tweets: function() {
-        return this.hasMany(Tweet);
+        return this.hasMany('Tweet');
     }
 });
-
 
 checkit.Validator.prototype.unused = function(val) {
     return new User({ email : val }).fetch().then(function(model) {
@@ -56,4 +55,5 @@ checkit.Validator.prototype.unused = function(val) {
     });
 }
 
-module.exports = User;
+
+module.exports = services.Bookshelf.model('User', User);

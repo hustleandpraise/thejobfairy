@@ -13,8 +13,8 @@ var Tag = services.Bookshelf.Model.extend({
     initialize: function() {
     },
     tweets: function() {
-        return this.belongsToMany(Tweet);
+        return this.belongsToMany('Tweet');
     }
 });
 
-module.exports = Tag;
+module.exports = services.Bookshelf.model('Tag', Tag);

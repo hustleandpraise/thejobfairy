@@ -3,8 +3,7 @@ var services    = require('../services'),
     User        = require('./user'),
     Location    = require('./location'),
     Category    = require('./category'),
-    Tag         = require('./tag'),
-    User        = require('./user');
+    Tag         = require('./tag');
 
 
 var rules = {
@@ -17,17 +16,17 @@ var Tweet = services.Bookshelf.Model.extend({
     initialize: function() {
     },
     locations: function() {
-        return this.belongsToMany(Location);
+        return this.belongsToMany('Location');
     },
     categories: function() {
-        return this.belongsToMany(Category);
+        return this.belongsToMany('Category');
     },
     tags: function() {
-        return this.belongsToMany(Tag);
+        return this.belongsToMany('Tag');
     },
     user: function() {
-        return this.belongsTo(User);
+        return this.belongsTo('User');
     }
 });
 
-module.exports = Tweet;
+module.exports = services.Bookshelf.model('Tweet', Tweet);
