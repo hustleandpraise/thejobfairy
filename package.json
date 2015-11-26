@@ -29,7 +29,8 @@
         "lodash" : "^3.0.0",
         "slug" : "*",
         "twitter" : "*",
-        "emoji-strip" : "*"
+        "emoji-strip" : "*",
+        "slug" : "*"
     },
     "devDependencies": {
         "gulp": "^3.8.11",
