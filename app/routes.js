@@ -4,7 +4,9 @@ var HomeController      = require('./controllers/index');
 var SignupController    = require('./controllers/signup');
 var LoginController     = require('./controllers/login');
 var UserController     = require('./controllers/users');
-
+var TagController     = require('./controllers/tag');
+var CategoryController     = require('./controllers/category');
+var LocationController     = require('./controllers/location');
 
 function ensureAuthenticated(req,res,next) {
     if (req.isAuthenticated()) {
@@ -23,6 +25,9 @@ module.exports = (app) => {
     app.use('/login', LoginController);
 
     app.use('/', UserController);
+    app.use('/tag', TagController);
+    app.use('/category', CategoryController);
+    app.use('/location', LocationController);
 
     app.get('/logout', (req, res) => {
         req.logout();
