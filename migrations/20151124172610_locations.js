@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
         table.increments().primary();
         table.integer('parent').defaultTo(0);
         table.string('title');
+        table.string('slug');
         table.timestamps();
     });
 };
