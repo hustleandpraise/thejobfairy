@@ -1,0 +1,8 @@
+extends ../layout
+
+block content
+    
+    h1= "Location: " + title
+
+    each tweet in tweets
+        p= tweet.text

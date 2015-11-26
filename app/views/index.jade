@@ -3,17 +3,27 @@ extends layout
 block content
     h1= "#thejobfairy"
 
-    each tweet in tweets
-        ul.user
-            li= tweet.text
+    h2= "Categories"
+    
+    ul
+    each category in categories
+        if category.tweets.length > 0
             li
-                a(href="/" + tweet.user.username)= "@" + tweet.user.username
-            li= "Tags: "
-                each tag in tweet.tags
-                    = "#" + tag.title + ", "
-            li= "Categories: "
-                each category in tweet.categories
-                    = category.title + ", "
-            li= "Locations: "
-                each location in tweet.locations
-                    = location.title + ", "   
+                a(href="/category/" + category.slug)=category.title
+
+    h2= "Tags"
+    
+    ul
+    each tag in tags
+        if tag.tweets.length > 0
+            li
+                a(href="/tag/" + tag.title)=tag.title
+
+    h2= "Locations"
+    
+    ul
+    each location in locations
+        if location.tweets.length > 0
+            li
+                a(href="/location/" + location.slug)=location.title
+
