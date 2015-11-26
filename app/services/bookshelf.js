@@ -6,4 +6,13 @@ var knex = require('knex')({
     connection: Config.db
 });
 
-module.exports = require('bookshelf')(knex);
+var Bookshelf = require('bookshelf')(knex);
+
+// knex.on('query', function(data) {
+//     app.log(data);
+// });
+
+
+Bookshelf.plugin('registry')
+
+module.exports = Bookshelf;
