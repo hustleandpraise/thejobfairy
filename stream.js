@@ -67,7 +67,7 @@ var setupHashtags = function(hashtags) {
 
 var userSetup = function(user) {
     return new Promise((resolve, reject) => {
-        var findUser = new Models.Tweeter({ twitter_id: user.twitter_id }).fetch();
+        var findUser = new Models.User({ twitter_id: user.twitter_id }).fetch();
 
         findUser.then((model) => {
             if(model === null) {
@@ -100,7 +100,7 @@ Promise.all([getCategories, getLocations]).then((models) => {
     var categories  = models[0].models,
         locations   = models[1].models;
 
-    client.stream('statuses/filter', { track: 'lol', language: 'en', }, function(stream) {
+    client.stream('statuses/filter', { track: 'jobfairy', language: 'en', }, function(stream) {
 
         console.log('Stream Running...');
 
@@ -178,7 +178,7 @@ Promise.all([getCategories, getLocations]).then((models) => {
                     user_id: user.id,
                     tweet_id: original.id,
                     text: emojiStrip(original.text),
-                    tweet_created_at: Date.parse(original.created_at)
+                    tweet_created_at: new Date(original.created_at)
                 });
 
                 saveTweet.save().then((model) => {
