@@ -5,20 +5,19 @@ module.exports = function (shipit) {
     shipit.initConfig({
         default: {
             workspace: './build',
-            deployTo: './apps',
+            deployTo: './app',
             repositoryUrl: 'https://github.com/hustleandpraise/thejobfairy.git',
             ignores: ['.git', 'node_modules'],
             rsync: ['--del'],
             keepReleases: 2,
             key: '~/.ssh/id_rsa.pub',
-            shallowClone: true
         },
         staging: {
             servers: 'root@178.62.85.145'
         }
     });
 
-    shipit.task('deploy:publish', function () {
+    shipit.task('deploy:finish', function () {
         return shipit.remote('cd ~/apps/current').then((res) => {
 
             return shipit.remote('sudo npm install').then((res) => {
@@ -29,6 +28,7 @@ module.exports = function (shipit) {
         }).then((done) => {
             console.log(done)
         })
+        console.log('done!')
     });
 
     shipit.task('deploy:clean', function () {
