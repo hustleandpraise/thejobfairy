@@ -19,9 +19,9 @@ module.exports = function (shipit) {
     });
 
     shipit.task('deploy:publish', function () {
-        return shipit.remote('cd ~/apps/current/').then((res) => {
+        return shipit.remote('cd ~/apps/current').then((res) => {
 
-            return shipit.remote('npm install').then((res) => {
+            return shipit.remote('sudo npm install').then((res) => {
                 shipit.remote('knex migrate:latest')
                 shipit.remote('forever start ./bin/www')
             });
