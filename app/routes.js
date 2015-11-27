@@ -3,7 +3,7 @@
 var HomeController      = require('./controllers/index');
 var SignupController    = require('./controllers/signup');
 var LoginController     = require('./controllers/login');
-var UserController     = require('./controllers/users');
+var UserController     = require('./controllers/user');
 var TagController     = require('./controllers/tag');
 var CategoryController     = require('./controllers/category');
 var LocationController     = require('./controllers/location');
@@ -28,6 +28,7 @@ module.exports = (app) => {
     app.use('/tag', TagController);
     app.use('/category', CategoryController);
     app.use('/location', LocationController);
+    app.use('/user', UserController);
 
     app.get('/logout', (req, res) => {
         req.logout();
