@@ -1,0 +1,8 @@
+extends ../layout
+
+block content
+
+    h1= "User: " + user.username
+
+    each tweet in user.tweets
+        p= tweet.text
