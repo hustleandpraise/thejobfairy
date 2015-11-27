@@ -10,10 +10,12 @@ var express = require('express'),
 
 router.get('/:category', (req, res, next) => {
 
-    var tags = new models.Category({ title: req.params.category }).fetch({ withRelated: ['tweets'] });
+    var tags = new models.Category({ title: req.params.category }).fetch({ withRelated: ['tweets', 'tweets.user'] });
 
     tags.then((model) => {
+        
         res.render('category/index', { title: req.params.category, tweets: model.relations.tweets.toJSON() });
+        
     }).catch((err) => {
         console.log(err);
     })

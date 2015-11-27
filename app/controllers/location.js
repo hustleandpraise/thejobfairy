@@ -10,7 +10,7 @@ var express = require('express'),
 
 router.get('/:location', (req, res, next) => {
 
-    var locations = new models.Location({ title: req.params.location }).fetch({ withRelated: ['tweets'] });
+    var locations = new models.Location({ title: req.params.location }).fetch({ withRelated: ['tweets', 'tweets.user'] });
 
     locations.then((model) => {
         res.render('location/index', { title: req.params.location, tweets: model.relations.tweets.toJSON() });

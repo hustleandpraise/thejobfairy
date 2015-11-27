@@ -8,12 +8,12 @@ var express = require('express'),
 |--------------------------------------------------------------------------
 */
 
-router.get('/:tag', (req, res, next) => {
+router.get('/:user', (req, res, next) => {
 
-    var tags = new models.Tag({ title: req.params.tag }).fetch({ withRelated: ['tweets', 'tweets.user'] });
+    var tags = new models.User({ username: req.params.user }).fetch({ withRelated: ['tweets'] });
 
     tags.then((model) => {
-        res.render('tag/index', { title: req.params.tag, tweets: model.relations.tweets.toJSON() });
+        res.render('user/index', { user: model.toJSON() });
     }).catch((err) => {
         console.log(err);
     })
