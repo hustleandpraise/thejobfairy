@@ -1,4 +1,6 @@
 module.exports = {
     Passport:   require('./auth'),
-    Bookshelf:  require('./bookshelf')
+    Bookshelf:  require('./bookshelf'),
+    Str:        require('./string'),
+    Middleware: require('./middleware')
 }
