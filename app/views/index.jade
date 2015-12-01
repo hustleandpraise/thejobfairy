@@ -1,29 +1,37 @@
 extends layout
 
 block content
-    h1= "#thejobfairy"
-
-    h2= "Categories"
     
-    ul
-    each category in categories
-        if category.tweets.length > 0
-            li
-                a(href="/category/" + category.slug)=category.title
+    .heading
+        h1= "#thejobfairy"
+        p= "Lorem ipsum dolor sit amet consectetur adipisicing elit Iusto quam"
 
-    h2= "Tags"
-    
-    ul
-    each tag in tags
-        if tag.tweets.length > 0
-            li
-                a(href="/tag/" + tag.title)=tag.title
+    .container
+        .row
+            include _partials/filter
+        .tweets
+            each tweet in tweets
+                include _partials/tweet
 
-    h2= "Locations"
-    
-    ul
-    each location in locations
-        if location.tweets.length > 0
-            li
-                a(href="/location/" + location.slug)=location.title
+        //- section.categories
+        //-     each category in categories
+        //-         a(href="/category/" + category.slug)= category.title
+
+        != createPagination(pages, page)
+
+    .heading.heading-short
+        h2= "Tags"
+
+    section.container.container-tags
+        .row
+            .tags
+                each tag in tags
+                    a(href="/tag/" + tag.title, style="color:" + tag.color + ";")= tag.title
+                    =" "
+
+        //- section.tags
+        //-     each location in locations
+        //-         a(href="/location/" + location.slug)= location.title
+
+
 

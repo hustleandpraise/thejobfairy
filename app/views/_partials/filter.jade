@@ -1,0 +1,16 @@
+
+.filter
+    form(action="/" method="get")
+        .row
+            .category
+                select(name="category")
+                    each category in categories
+                        option(value=category.id)= category.title
+
+            .location
+                select(name="location")
+                    each location in locations
+                        option(value=location.id)= location.title
+
+            .search
+                button.btn.btn-block(style="background-color:" + color + ";")!= "Search &rarr;"

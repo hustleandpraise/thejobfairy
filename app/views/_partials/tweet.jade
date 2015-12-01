@@ -1,0 +1,13 @@
+
+.tweet-wrap
+    .tweet(style="background-color:" + tweet.color + ";")
+        .wrap
+            .text  
+                != tweet.text
+            .user
+                .row
+                    .username
+                        = "@" + tweet.user.username
+                    .date
+                        = moment(tweet.created_at).fromNow()
+
