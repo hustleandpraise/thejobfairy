@@ -15,7 +15,8 @@ var express         = require('express'),
     flash           = require('connect-flash'),
     passport        = require('./app/services/auth'),
     session         = require('express-session'),
-    RedisStore      = require('connect-redis')(session);
+    RedisStore      = require('connect-redis')(session),
+    Middleware      = require('./app/services').Middleware;
 
 
 var app = express();
@@ -50,7 +51,8 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(Middleware.pagination);
+app.use(Middleware.color);
 app.use(express.static(path.join(__dirname, 'public')));
 
 
