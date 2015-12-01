@@ -49,18 +49,6 @@
     text-align: right;
 }
 
-/*
-|--------------------------------------------------------------------------
-| Auth
-|--------------------------------------------------------------------------
-*/
-
-.auth {
-    width: 300px;
-    margin: 50px auto;
-}
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -75,9 +63,33 @@
     text-decoration: none;
     background-color: @brand-primary;
     border: 0;
-    border-radius: 3px;
+    &.btn-block {
+        width: 100%;
+    }
 }
 
+
+/*
+|--------------------------------------------------------------------------
+| Fields
+|--------------------------------------------------------------------------
+*/
+
+
+select {
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: solid 1px #ccc;
+    .box-sizing(border-box);
+    padding: 15px;
+    background-color: transparent;
+    border-radius: 0;
+    &:focus {
+        outline: none;
+    }
+}
 
 
 

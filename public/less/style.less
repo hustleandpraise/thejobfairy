@@ -9,36 +9,187 @@
 |--------------------------------------------------------------------------
 */
 
-// Basic Styling - Remove Me!
-
 body {
-    padding: 50px;
+    margin: 0 0 300px 0;
     font-family: "Helvetica Neue", Arial, sans-serif;
     font-size: 14px;
     line-height: 1.5;
+    font-weight: 400;
+    #gradient > .vertical(lighten(#9b59b6, 45%), #fff);
 }
 
-a {
-    color: #1abc9c;
-    text-decoration: none;
+html, body {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, h4, h5 {
-    font-weight: 300;
+html {
+    position: relative;
+    min-height: 100%;
 }
+
+/*
+|--------------------------------------------------------------------------
+| Container
+|--------------------------------------------------------------------------
+*/
+
+@media( min-width: 1px )    { .container { margin: 0 15px; } }
+@media( min-width: 768px )  { .container { margin: 0 30px; } }
+@media( min-width: 980px )  { .container { margin: 0 auto; width: 960px;  } }
+@media( min-width: 1200px ) { .container { margin: 0 auto; width: 1170px; } }
+@media( min-width: 1680px ) { .container { margin: 0 30px; width: auto; } }
+
+@media( min-width: 768px )  { .row { .make-row() } }
+
+.container {
+    .clearfix();
+    &.container-relative {
+        position: relative;
+    }
+}
+
 
 @import 'common';
+@import 'filter';
 
 
-.wrap {
+.heading {
+    // border-bottom: solid 1px #ddd;
+    padding: 100px 0;
+    text-align: center;
+    h1, h2 {
+        font-weight: 400;
+    }
+    p {
+        color: #777;
+        font-size: 18px;
+    }
+    &.heading-short {
+        padding: 40px 0;
+    }
+}
+
+
+.tweets {
+    // display: -webkit-flex;
+    // display: -ms-flexbox;
+    // display: flex;
+ 
+    // -webkit-flex-wrap: wrap;
+    // -ms-flex-wrap: wrap;
+    // flex-wrap: wrap;
     .make-row();
 }
 
-.movie {
-    .make-column(1);
-    img {
+.tweet-wrap {
+    .make-column(3);
+    margin-bottom: 30px;
+}
+
+.tweet {
+    background-color: #33ce75;
+    // display: -webkit-flex;
+    // display: -ms-flexbox;
+    // display: flex;
+    //.make-column(3);
+    //border: solid 1px #ddd;
+    //border-radius: 4px;
+    // width: 25%;
+    // float: left;
+    color: #fff;
+    .box-sizing(border-box);
+    overflow: hidden;
+    .wrap {
         display: block;
         width: 100%;
-        height: auto;
+    }
+    .text {
+        font-size: 24px;
+        padding: 80px 40px;
+        height: 100px;
+    }
+    .user {
+        ///border-top: solid 1px #ddd;
+        padding: 20px 40px;
+        background-repeat: no-repeat;
+        background-position: 20px 20px;
+        background-color: rgba(0, 0, 0, 0.1);
+        .username, .date {
+            .make-column(6);
+        }
+        .date {
+            text-align: right;
+        }
+    }
+    a {
+        color: #fff;
+        text-decoration: none;
     }
 }
+
+.tags  {
+    .make-column(6);
+    .make-column-offset(3);
+    font-size: 18px;
+    text-align: center;
+    a {
+        display: inline-block;
+        padding: 5px;
+        margin: 5px;
+        color: inherit;
+        text-decoration: none;
+        border-bottom: dotted 1px inherit;
+    }
+}
+
+
+footer {
+    background-color: #f9f9f9;
+    padding: 100px 0;
+    text-align: center;
+    color: #777;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    a {
+        color: inherit;
+        border-bottom: dotted 1px #777;
+        text-decoration: none;
+    }
+}
+
+
+.pagination {
+    text-align: center;
+    margin: 50px 0;
+    ul {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    a {
+        display: inline-block;
+        padding: 10px 15px;
+        border: solid 1px #ddd;
+        color: inherit;
+        text-decoration: none;
+        font-size: 18px;
+        color: #555;
+    }
+    li {
+        float: left;
+        margin-left: -1px;
+        &.prev a {
+            border-radius: 3px 0 0 3px;
+        }
+        &.next a {
+            border-radius: 0 3px 3px 0;
+        }
+    }
+}
+
+
+
