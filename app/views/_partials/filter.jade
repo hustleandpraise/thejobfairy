@@ -4,11 +4,13 @@
         .row
             .category
                 select(name="category")
+                    option(value="0")= "All Categories"
                     each category in categories
                         option(value=category.id)= category.title
 
             .location
                 select(name="location")
+                    option(value="0")= "Everywhere"
                     each location in locations
                         option(value=location.id)= location.title
 

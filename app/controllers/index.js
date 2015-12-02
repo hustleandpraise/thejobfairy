@@ -26,21 +26,36 @@ router.get('/', (req, res, next) => {
     var perPage = 28,
         page = req.query.page > 0 ? req.query.page : 0;
 
-    console.log(req.query)
-
+//     SELECT * FROM tweets a
+// INNER JOIN locations_tweets b
+// ON b.tweet_id = a.id
+// INNER JOIN categories_tweets c
+// ON c.tweet_id = a.id
+// WHERE c.`category_id` = 34
+//   AND b.`location_id` = 1
 
     var tweets = new models.Tweet().query(function(q) {
-        q.orderBy('created_at', 'desc');
+        q.select('v.id', 'v.text', 'v.user_id', 'v.created_at', 'a.category_id', 'b.location_id')
+        q.from('tweets as v')
+        q.innerJoin('categories_tweets as a', 'v.id', 'a.tweet_id')
+        q.innerJoin('locations_tweets as b', 'v.id', 'b.tweet_id')
+        q.orderBy('v.created_at', 'desc');
         q.limit(perPage);
+        if( parseInt(req.query.location) ) {
+            q.where('b.location_id', req.query.location)
+        }
+        if( parseInt(req.query.category) ) {
+            q.where('a.category_id', req.query.category)
+        }
         return q.offset(perPage * page);
-    }).fetchAll({ withRelated: ['user'] });
+    }).fetchAll({ withRelated: ['user'] }).catch((err) => {
+        console.log(err);
+    })
 
     var getTags        = new models.Tag().query('orderBy', 'title', 'asc').fetchAll();
     var getCategories  = new models.Category().query('orderBy', 'title', 'asc').fetchAll();
     var getLocations   = new models.Location().query('orderBy', 'title', 'asc').fetchAll();
     var getTweetCount  = new models.Tweet().count();
-
-    
 
     Promise.all([getTags, getCategories, getLocations, tweets, getTweetCount]).then((models) => {
 
